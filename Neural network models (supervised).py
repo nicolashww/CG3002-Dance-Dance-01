@@ -32,6 +32,7 @@ Created on Sun Sep 17 18:57:42 2017
 import csv
 import numpy as np 
 
+
 with open('dataset-har-PUC-Rio-ugulino.csv') as csvfile:
     reader=csv.reader(csvfile,delimiter=';')
     headers = next(reader)
@@ -44,32 +45,18 @@ with open('dataset-har-PUC-Rio-ugulino.csv') as csvfile:
             
 testdata = np.genfromtxt ('dataset-har-PUC-Rio-ugulino.csv', delimiter=";")
 testdata = np.delete(testdata, (0), axis=0)
-#lastrow = testdata[:,17]
-#print(lastrow)
 X = testdata[:,[6,7,8,9,10,11,12,13,14,15,16,17]]
-    
+
 
 #Data pre-processing
-
-# Encode output variable  
+##Encode output variable  
 from sklearn import preprocessing
 le = preprocessing.LabelEncoder()
 le.fit(['sittingdown', 'standingup', 'standing', 'walking', 'sitting'])
 #print(list(le.classes_))
-
 y = []
 y = le.transform(column['class'])
-
-#Data pre-processing 
-from sklearn import preprocessing 
 normalized_X = preprocessing.normalize(X) 
-
-print(X.shape) 
-print(normalized_X.shape)
-print(y.shape)
-print(testdata.shape)
-
-
 
 
 #Evaluate model
