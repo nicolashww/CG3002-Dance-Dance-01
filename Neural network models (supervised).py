@@ -4,6 +4,9 @@ Created on Sun Sep 17 18:57:42 2017
 
 @author: Jun Hao
 """
+#simple timer
+import time
+tfulls = time.time()
 
 import csv
 import numpy as np 
@@ -44,20 +47,24 @@ from sklearn.svm import SVC
 from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
 
-kfold = KFold(n_splits=10, shuffle=True)
+kfold = KFold(n_splits=2, shuffle=True)
 
 fold_index = 0
 for train, test in kfold.split(normalized_X):
+    tparts = time.time()
     svm_model_linear = SVC(kernel = 'linear', C = 1).fit(normalized_X[train], y[train])
     svm_predictions = svm_model_linear.predict(normalized_X[test])
     accuracy = svm_model_linear.score(normalized_X[test], y[test])
     cm = confusion_matrix(y[test], svm_predictions)
+    tparte = time.time()
     print('In the %i fold, the classification accuracy is %f' %(fold_index, accuracy))
     print('And the confusion matrix is: ')
     print(cm)
+    print('This fold took %f seconds END' %(tparte-tparts))
     fold_index +=1
     
-    
+tfulle = time.time()
+print('The whole code took %f seconds' %(tfulle-tfulls))
     
 #Neural Network classifier
 #from sklearn.neural_network import MLPClassifier
