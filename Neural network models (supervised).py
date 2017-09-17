@@ -6,40 +6,63 @@ Created on Sun Sep 17 18:57:42 2017
 """
 
 #Neural Network classifier
-from sklearn.neural_network import MLPClassifier
-X = [[0., 0.], [1., 1.]]
-y = [0, 1]
-clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
-
-print(clf.fit(X, y))
-
-print(clf.predict([[2., 2.], [-1., -2.]]))
-
-print([coef.shape for coef in clf.coefs_])
-
-print(clf.predict_proba([[2., 2.], [1., 2.]]) )
-
-X = [[0., 0.], [1., 1.]]
-y = [[0, 1], [1, 1]]
-clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(15,), random_state=1)
-
-clf.fit(X, y)                         
-
-print(clf.predict([[1., 2.]]))
- 
-print(clf.predict([[0., 0.]]))
+#from sklearn.neural_network import MLPClassifier
+#X = [[0., 0.], [1., 1.]]
+#y = [0, 1]
+#clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
+#
+#print(clf.fit(X, y))
+#
+#print(clf.predict([[2., 2.], [-1., -2.]]))
+#
+#print([coef.shape for coef in clf.coefs_])
+#
+#print(clf.predict_proba([[2., 2.], [1., 2.]]) )
+#
+#X = [[0., 0.], [1., 1.]]
+#y = [[0, 1], [1, 1]]
+#clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(15,), random_state=1)
+#
+#clf.fit(X, y)                         
+#
+#print(clf.predict([[1., 2.]]))
+# 
+#print(clf.predict([[0., 0.]]))
 
 
 
 import csv
 
 with open('dataset-har-PUC-Rio-ugulino.csv') as csvfile:
-    reader = csv.DictReader(csvfile)
-#    for row in reader:
-#        print(row)
+    reader=csv.reader(csvfile,delimiter=';')
+    headers = next(reader)
+    print(headers)
+    column = {}
+    for h in headers:
+        column[h] = []
+        print(column)
+    for row in reader:
+        for h, v in zip(headers, row):
+            column[h].append(v)
+    print(column['x1'])
+#    reader = csv.DictReader(csvfile)
+    #for row in reader:
+        #print(row[x1])
       
-# Encode output variable  
+
+#Data pre-processing
+from sklearn.datasets import load_iris
 from sklearn import preprocessing
+iris = load_iris()
+print(iris.data.shape)
+X = iris.data
+print(X)
+y = iris.target
+normalized_X = preprocessing.normalize(X)
+print(normalized_X)
+
+# Encode output variable  
+#from sklearn import preprocessing
 le = preprocessing.LabelEncoder()
 le.fit(['sitting-down', 'standing-up', 'standing', 'walking', 'sitting'])
 print(list(le.classes_))
