@@ -47,7 +47,7 @@ from sklearn.svm import SVC
 from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
 
-kfold = KFold(n_splits=2, shuffle=True)
+kfold = KFold(n_splits=10, shuffle=True)
 
 fold_index = 0
 for train, test in kfold.split(normalized_X):
