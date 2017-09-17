@@ -53,11 +53,10 @@ le.fit(['sittingdown', 'standingup', 'standing', 'walking', 'sitting'])
 #print(list(le.classes_))
 
 
-
-X = np.vstack((preprocessing.normalize(column['x1']), preprocessing.normalize(column['y1']), preprocessing.normalize(column['z1']), preprocessing.normalize(column['x2']), preprocessing.normalize(column['y2']), preprocessing.normalize(column['z2']), preprocessing.normalize(column['x3']), preprocessing.normalize(column['y3']), preprocessing.normalize(column['z3']), preprocessing.normalize(column['x4']), preprocessing.normalize(column['y4'])))
+X = np.vstack((preprocessing.normalize(column['x1']), preprocessing.normalize(column['y1']), preprocessing.normalize(column['z1']), preprocessing.normalize(column['x2']), preprocessing.normalize(column['y2']), preprocessing.normalize(column['z2']), preprocessing.normalize(column['x3']), preprocessing.normalize(column['y3']), preprocessing.normalize(column['z3']), preprocessing.normalize(column['x4']), preprocessing.normalize(column['y4']), preprocessing.normalize(column['z4'])))
 print(X)
 y = []
-y = le.transform(column['class'])
+y = np.unique(le.transform(column['class']))
 print(y)
 
 
