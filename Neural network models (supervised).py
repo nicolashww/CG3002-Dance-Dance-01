@@ -29,44 +29,37 @@ Created on Sun Sep 17 18:57:42 2017
 # 
 #print(clf.predict([[0., 0.]]))
 
-
-
 import csv
+import numpy as np 
 
 with open('dataset-har-PUC-Rio-ugulino.csv') as csvfile:
     reader=csv.reader(csvfile,delimiter=';')
     headers = next(reader)
-    print(headers)
     column = {}
     for h in headers:
         column[h] = []
-        print(column)
     for row in reader:
         for h, v in zip(headers, row):
             column[h].append(v)
-    print(column['x1'])
-#    reader = csv.DictReader(csvfile)
-    #for row in reader:
-        #print(row[x1])
-      
+    
 
 #Data pre-processing
-from sklearn.datasets import load_iris
-from sklearn import preprocessing
-iris = load_iris()
-print(iris.data.shape)
-X = iris.data
-print(X)
-y = iris.target
-normalized_X = preprocessing.normalize(X)
-print(normalized_X)
 
 # Encode output variable  
 #from sklearn import preprocessing
+from sklearn import preprocessing
 le = preprocessing.LabelEncoder()
-le.fit(['sitting-down', 'standing-up', 'standing', 'walking', 'sitting'])
-print(list(le.classes_))
-print(le.transform(['walking', 'standing','standing-up', 'sitting', 'sitting-down']))
+le.fit(['sittingdown', 'standingup', 'standing', 'walking', 'sitting'])
+#print(list(le.classes_))
+
+
+
+X = np.vstack((preprocessing.normalize(column['x1']), preprocessing.normalize(column['y1']), preprocessing.normalize(column['z1']), preprocessing.normalize(column['x2']), preprocessing.normalize(column['y2']), preprocessing.normalize(column['z2']), preprocessing.normalize(column['x3']), preprocessing.normalize(column['y3']), preprocessing.normalize(column['z3']), preprocessing.normalize(column['x4']), preprocessing.normalize(column['y4'])))
+print(X)
+y = []
+y = le.transform(column['class'])
+print(y)
+
 
 
 #Evaluate model
@@ -77,10 +70,10 @@ from sklearn.metrics import confusion_matrix
 kfold = KFold(n_splits=10, shuffle=True)
 
 fold_index = 0
-for train, test in kfold.split(normalized_X):
-    svm_model_linear = SVC(kernel = 'linear', C = 1).fit(normalized_X[train], y[train])
-    svm_predictions = svm_model_linear.predict(normalized_X[test])
-    accuracy = svm_model_linear.score(normalized_X[test], y[test])
+for train, test in kfold.split(X):
+    svm_model_linear = SVC(kernel = 'linear', C = 1).fit(X[train], y[train])
+    svm_predictions = svm_model_linear.predict(X[test])
+    accuracy = svm_model_linear.score(X[test], y[test])
     cm = confusion_matrix(y[test], svm_predictions)
     print('In the %i fold, the classification accuracy is %f' %(fold_index, accuracy))
     print('And the confusion matrix is: ')
