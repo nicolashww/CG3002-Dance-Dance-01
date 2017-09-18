@@ -76,9 +76,7 @@ for train, test in kfold.split(normalized_X):
     fold_index +=1
     print(' ')
 avg_accuracy_svm /= n_splits_val
-print('Support Vector Machines took %f seconds' %((time.time())-tsvms))
-print('with an average accuracy of %f' %(avg_accuracy_svm))
-print(' ')
+tsvme = time.time()
 
 #NN
 print(' ')
@@ -102,10 +100,7 @@ for train, test in kfold.split(normalized_X):
     fold_index +=1
     print(' ')
 avg_accuracy_nn /= n_splits_val
-print('Neural network model took %f seconds' %((time.time())-tnns))
-print('with an average accuracy of %f' %(avg_accuracy_nn))
-print(' ')
-print(' ')
+tnne = time.time()
 
 #KNN
 print(' ')
@@ -129,10 +124,7 @@ for train, test in kfold.split(normalized_X):
     fold_index +=1
     print(' ')
 avg_accuracy_knn /= n_splits_val
-print('Nearest Neighbors took %f seconds' %((time.time())-tknns))
-print('with an average accuracy of %f' %(avg_accuracy_knn))
-print(' ')
-print(' ')
+tknne = time.time()
 
 #AB
 print(' ')
@@ -156,10 +148,7 @@ for train, test in kfold.split(normalized_X):
     fold_index +=1
     print(' ')
 avg_accuracy_ab /= n_splits_val
-print('AdaBoost took %f seconds' %((time.time())-tabs))
-print('with an average accuracy of %f' %(avg_accuracy_ab))
-print(' ')
-print(' ')
+tabe = time.time()
 
 #RF
 print(' ')
@@ -183,8 +172,26 @@ for train, test in kfold.split(normalized_X):
     fold_index +=1
     print(' ')
 avg_accuracy_rf /= n_splits_val
-print('Random Forest took %f seconds' %((time.time())-trfs))
-print('with an average accuracy of %f' %(avg_accuracy_rf))
+trfe = time.time()
+print(' ')
+
+#Results
+print('Results:')
+print(' ')
+print('Support Vector Machines took %f seconds' %(tsvme-tsvms))
+print('with an average accuracy of %f%%' %(avg_accuracy_svm*100))
+print(' ')
+print('Neural network model took %f seconds' %(tnne-tnns))
+print('with an average accuracy of %f%%' %(avg_accuracy_nn*100))
+print(' ')
+print('Nearest Neighbors took %f seconds' %(tknne-tknns))
+print('with an average accuracy of %f%%' %(avg_accuracy_knn*100))
+print(' ')
+print('AdaBoost took %f seconds' %(tabe-tabs))
+print('with an average accuracy of %f%%' %(avg_accuracy_ab*100))
+print(' ')
+print('Random Forest took %f seconds' %(trfe-trfs))
+print('with an average accuracy of %f%%' %(avg_accuracy_rf*100))
 print(' ')
 print(' ')
 
