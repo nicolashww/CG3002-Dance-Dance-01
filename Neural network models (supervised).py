@@ -42,16 +42,24 @@ y = le.transform(column['class'])
 normalized_X = preprocessing.normalize(X) 
 
 
+
+
 #Evaluate model
 from sklearn.svm import SVC
+from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
 
 kfold = KFold(n_splits=10, shuffle=True)
 
+#SVM
+print(' ')
+print('Support Vector Machines')
 fold_index = 0
 for train, test in kfold.split(normalized_X):
     tparts = time.time()
+    #SVC vs SVM
+    #LinearSVC is not linear SVM. If you scale it up too much - it will also fail, as now tolerance and number of iterations are crucial. Do not use LinearSVC.
     svm_model_linear = SVC(kernel = 'linear', C = 1).fit(normalized_X[train], y[train])
     svm_predictions = svm_model_linear.predict(normalized_X[test])
     accuracy = svm_model_linear.score(normalized_X[test], y[test])
@@ -62,6 +70,36 @@ for train, test in kfold.split(normalized_X):
     print(cm)
     print('This fold took %f seconds END' %(tparte-tparts))
     fold_index +=1
+
+#NN
+print(' ')
+print('Neural network model')
+fold_index = 0
+for train, test in kfold.split(normalized_X):
+    tparts = time.time()
+    nn_model = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1).fit(normalized_X[train], y[train])
+    nn_predictions = nn_model.predict(normalized_X[test])
+    accuracy = nn_model.score(normalized_X[test], y[test])
+    cm = confusion_matrix(y[test], nn_predictions)
+    tparte = time.time()
+    print('In the %i fold, the classification accuracy is %f' %(fold_index, accuracy))
+    print('And the confusion matrix is: ')
+    print(cm)
+    print('This fold took %f seconds END' %(tparte-tparts))
+    fold_index +=1
+    
+    
+    
+    
+    
+#Extract some random values
+sample = normalized_X[[100,300,500,700,900],:]
+sampletruth = y[[100,300,500,700,900],]
+
+print(sample)
+print(sampletruth)
+print(svm_model_linear.predict(sample))
+print(nn_model.predict(sample))
     
 tfulle = time.time()
 print('The whole code took %f seconds' %(tfulle-tfulls))
