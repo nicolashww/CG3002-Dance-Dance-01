@@ -50,13 +50,15 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
 
-kfold = KFold(n_splits=10, shuffle=True)
+n_splits_val = 10
+kfold = KFold(n_splits=n_splits_val, shuffle=True)
 
 #SVM
 print('Support Vector Machines')
 print(' ')
 tsvms = time.time()
 fold_index = 0
+avg_accuracy_svm = 0
 for train, test in kfold.split(normalized_X):
     tparts = time.time()
     #SVC vs SVM
@@ -66,13 +68,16 @@ for train, test in kfold.split(normalized_X):
     accuracy = svm_model_linear.score(normalized_X[test], y[test])
     cm = confusion_matrix(y[test], svm_predictions)
     tparte = time.time()
+    avg_accuracy_svm += accuracy
     print('In the %i fold, the classification accuracy is %f' %(fold_index, accuracy))
     print('And the confusion matrix is: ')
     print(cm)
     print('This fold took %f seconds' %(tparte-tparts))
     fold_index +=1
     print(' ')
+avg_accuracy_svm /= n_splits_val
 print('Support Vector Machines took %f seconds' %((time.time())-tsvms))
+print('with an average accuracy of %f' %(avg_accuracy_svm))
 print(' ')
 
 #NN
@@ -81,6 +86,7 @@ print('Neural network model')
 print(' ')
 tnns = time.time()
 fold_index = 0
+avg_accuracy_nn = 0
 for train, test in kfold.split(normalized_X):
     tparts = time.time()
     nn_model = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1).fit(normalized_X[train], y[train])
@@ -88,13 +94,16 @@ for train, test in kfold.split(normalized_X):
     accuracy = nn_model.score(normalized_X[test], y[test])
     cm = confusion_matrix(y[test], nn_predictions)
     tparte = time.time()
+    avg_accuracy_nn += accuracy
     print('In the %i fold, the classification accuracy is %f' %(fold_index, accuracy))
     print('And the confusion matrix is: ')
     print(cm)
     print('This fold took %f seconds' %(tparte-tparts))
     fold_index +=1
     print(' ')
+avg_accuracy_nn /= n_splits_val
 print('Neural network model took %f seconds' %((time.time())-tnns))
+print('with an average accuracy of %f' %(avg_accuracy_nn))
 print(' ')
 print(' ')  
 
