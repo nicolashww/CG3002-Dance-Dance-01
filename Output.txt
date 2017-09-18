@@ -1,0 +1,211 @@
+Support Vector Machines
+ 
+In the 0 fold, the classification accuracy is 0.866667
+And the confusion matrix is: 
+[[23  0  0  0  0]
+ [ 0 20  0  0  0]
+ [ 0  0  0  0 10]
+ [ 0  0  0 28  0]
+ [ 0  0  0  4 20]]
+This fold took 0.008005 seconds
+ 
+In the 1 fold, the classification accuracy is 0.895238
+And the confusion matrix is: 
+[[21  0  0  0  0]
+ [ 0 20  0  0  0]
+ [ 0  0  0  0  9]
+ [ 0  0  0 36  0]
+ [ 0  1  0  1 17]]
+This fold took 0.007993 seconds
+ 
+In the 2 fold, the classification accuracy is 0.778846
+And the confusion matrix is: 
+[[17  0  0  0  0]
+ [ 0 17  0  0  0]
+ [ 0  0  0  0 18]
+ [ 0  0  1 29  1]
+ [ 0  1  0  2 18]]
+This fold took 0.007005 seconds
+ 
+In the 3 fold, the classification accuracy is 0.846154
+And the confusion matrix is: 
+[[19  0  0  0  0]
+ [ 0 20  0  0  0]
+ [ 0  0  0  0 14]
+ [ 0  0  1 31  0]
+ [ 0  0  0  1 18]]
+This fold took 0.008006 seconds
+ 
+In the 4 fold, the classification accuracy is 0.817308
+And the confusion matrix is: 
+[[23  0  0  0  0]
+ [ 0 15  0  0  0]
+ [ 0  0  0  0 17]
+ [ 0  0  0 31  0]
+ [ 0  0  0  2 16]]
+This fold took 0.007017 seconds
+ 
+In the 5 fold, the classification accuracy is 0.778846
+And the confusion matrix is: 
+[[13  0  0  0  0]
+ [ 0 24  0  0  0]
+ [ 0  0  0  0 22]
+ [ 0  0  0 28  0]
+ [ 0  0  0  1 16]]
+This fold took 0.007014 seconds
+ 
+In the 6 fold, the classification accuracy is 0.826923
+And the confusion matrix is: 
+[[25  0  0  0  0]
+ [ 0 13  0  0  0]
+ [ 0  0  0  0 16]
+ [ 0  0  0 27  0]
+ [ 0  0  0  2 21]]
+This fold took 0.007993 seconds
+ 
+In the 7 fold, the classification accuracy is 0.836538
+And the confusion matrix is: 
+[[23  0  0  0  0]
+ [ 0 16  0  0  0]
+ [ 0  0  0  0 12]
+ [ 0  0  0 30  0]
+ [ 0  0  0  5 18]]
+This fold took 0.008019 seconds
+ 
+In the 8 fold, the classification accuracy is 0.855769
+And the confusion matrix is: 
+[[17  0  0  0  0]
+ [ 0 26  0  0  0]
+ [ 0  0  0  0 14]
+ [ 0  0  0 24  0]
+ [ 0  0  0  1 22]]
+This fold took 0.007005 seconds
+ 
+In the 9 fold, the classification accuracy is 0.817308
+And the confusion matrix is: 
+[[19  0  0  0  0]
+ [ 0 29  0  0  0]
+ [ 0  0  0  0 19]
+ [ 0  0  0 23  0]
+ [ 0  0  0  0 14]]
+This fold took 0.008005 seconds
+ 
+Support Vector Machines took 0.081045 seconds
+with an average accuracy of 0.831960
+ 
+ 
+Neural network model
+ 
+In the 0 fold, the classification accuracy is 0.885714
+And the confusion matrix is: 
+[[19  0  0  0  1]
+ [ 0 21  0  0  0]
+ [ 0  0 13  0  0]
+ [ 0  0  1 29  1]
+ [ 2  0  5  2 11]]
+This fold took 0.142098 seconds
+ 
+In the 1 fold, the classification accuracy is 0.914286
+And the confusion matrix is: 
+[[26  0  0  0  1]
+ [ 0 24  0  0  0]
+ [ 0  0 10  0  2]
+ [ 0  0  0 26  2]
+ [ 0  1  2  1 10]]
+This fold took 0.161114 seconds
+ 
+In the 2 fold, the classification accuracy is 0.817308
+And the confusion matrix is: 
+[[11  3  0  0  1]
+ [ 0 23  0  0  0]
+ [ 0  0 16  0  4]
+ [ 0  0  0 26  0]
+ [ 5  0  4  2  9]]
+This fold took 0.156110 seconds
+ 
+In the 3 fold, the classification accuracy is 0.884615
+And the confusion matrix is: 
+[[24  0  0  0  0]
+ [ 0 17  0  0  0]
+ [ 0  0 16  0  0]
+ [ 0  0  1 27  2]
+ [ 0  2  7  0  8]]
+This fold took 0.154109 seconds
+ 
+In the 4 fold, the classification accuracy is 0.865385
+And the confusion matrix is: 
+[[17  0  0  0  1]
+ [ 0 23  0  0  0]
+ [ 0  0 11  0  4]
+ [ 0  0  0 29  1]
+ [ 2  0  3  3 10]]
+This fold took 0.145103 seconds
+ 
+In the 5 fold, the classification accuracy is 0.826923
+And the confusion matrix is: 
+[[19  0  0  0  1]
+ [ 1 18  0  0  0]
+ [ 0  0 13  0  0]
+ [ 0  0  0 26  1]
+ [ 2  1 11  1 10]]
+This fold took 0.162114 seconds
+ 
+In the 6 fold, the classification accuracy is 0.932692
+And the confusion matrix is: 
+[[22  0  0  0  0]
+ [ 0 15  0  0  0]
+ [ 0  0 13  0  2]
+ [ 0  0  0 30  1]
+ [ 1  1  2  0 17]]
+This fold took 0.163115 seconds
+ 
+In the 7 fold, the classification accuracy is 0.903846
+And the confusion matrix is: 
+[[18  0  0  0  0]
+ [ 0 20  0  0  0]
+ [ 0  0 17  0  0]
+ [ 0  0  1 25  0]
+ [ 1  0  5  3 14]]
+This fold took 0.159112 seconds
+ 
+In the 8 fold, the classification accuracy is 0.855769
+And the confusion matrix is: 
+[[16  0  0  0  1]
+ [ 0 15  0  0  0]
+ [ 0  0 10  0  5]
+ [ 0  0  1 30  0]
+ [ 3  2  1  2 18]]
+This fold took 0.155109 seconds
+ 
+In the 9 fold, the classification accuracy is 0.903846
+And the confusion matrix is: 
+[[17  2  0  0  0]
+ [ 0 23  0  0  0]
+ [ 0  0 15  0  0]
+ [ 0  0  1 28  1]
+ [ 3  0  3  0 11]]
+This fold took 0.144100 seconds
+ 
+Neural network model took 1.547088 seconds
+with an average accuracy of 0.879038
+ 
+ 
+Sample data(normalized):
+[[-0.01001883  0.3239422  -0.21707467 -0.05009415  0.0634526  -0.05677337
+  -0.04341493  0.34731947 -0.30056493 -0.52431881 -0.33062142 -0.49092271]
+ [-0.01622232  0.1548494  -0.22416295 -0.43210358 -0.41588126 -0.592852
+  -0.02949512  0.15927367 -0.12240477 -0.33476966 -0.12387952 -0.21383965]
+ [-0.0250604   0.28123342 -0.28401791  0.01113796  0.23668159 -0.34527667
+   0.05568979  0.30072484 -0.26731097 -0.4928546  -0.25060403 -0.4399493 ]
+ [-0.0027864   0.30650421 -0.35387304  0.03900963  0.11981528 -0.10031047
+   0.09752407  0.15603851 -0.22569855 -0.64644524 -0.22569855 -0.4486107 ]
+ [-0.03516971  0.28676837 -0.22454504 -0.04869651  0.2488933  -0.3273488
+  -0.35981314  0.37604531  0.00541072 -0.42744719 -0.24618794 -0.42474183]]
+ 
+Correct result:
+[0 1 2 3 4]
+SVM predicted result:
+[0 1 4 3 4]
+NN predicted result:
+[0 1 2 3 4]
+The whole code took 1.657166 seconds
