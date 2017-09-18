@@ -8,10 +8,9 @@ Created on Sun Sep 17 18:57:42 2017
 import time
 tfulls = time.time()
 
+#Sort data into columns -> For some reason can't extract class column using the better(next) method
 import csv
 import numpy as np 
-
-#Sort data into columns -> For some reason can't extract class column using the better(next) method
 with open('dataset-har-PUC-Rio-ugulino.csv') as csvfile:
     reader=csv.reader(csvfile,delimiter=';')
     headers = next(reader)
@@ -42,11 +41,12 @@ y = le.transform(column['class'])
 normalized_X = preprocessing.normalize(X) 
 
 
-
-
 #Evaluate model
 from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix
 
@@ -105,7 +105,88 @@ avg_accuracy_nn /= n_splits_val
 print('Neural network model took %f seconds' %((time.time())-tnns))
 print('with an average accuracy of %f' %(avg_accuracy_nn))
 print(' ')
-print(' ')  
+print(' ')
+
+#KNN
+print(' ')
+print('Nearest Neighbors')
+print(' ')
+tknns = time.time()
+fold_index = 0
+avg_accuracy_knn = 0
+for train, test in kfold.split(normalized_X):
+    tparts = time.time()
+    knn_model = KNeighborsClassifier().fit(normalized_X[train], y[train])
+    knn_predictions = knn_model.predict(normalized_X[test])
+    accuracy = knn_model.score(normalized_X[test], y[test])
+    cm = confusion_matrix(y[test], knn_predictions)
+    tparte = time.time()
+    avg_accuracy_knn += accuracy
+    print('In the %i fold, the classification accuracy is %f' %(fold_index, accuracy))
+    print('And the confusion matrix is: ')
+    print(cm)
+    print('This fold took %f seconds' %(tparte-tparts))
+    fold_index +=1
+    print(' ')
+avg_accuracy_knn /= n_splits_val
+print('Nearest Neighbors took %f seconds' %((time.time())-tknns))
+print('with an average accuracy of %f' %(avg_accuracy_knn))
+print(' ')
+print(' ')
+
+#AB
+print(' ')
+print('AdaBoost')
+print(' ')
+tabs = time.time()
+fold_index = 0
+avg_accuracy_ab = 0
+for train, test in kfold.split(normalized_X):
+    tparts = time.time()
+    ab_model = AdaBoostClassifier().fit(normalized_X[train], y[train])
+    ab_predictions = ab_model.predict(normalized_X[test])
+    accuracy = ab_model.score(normalized_X[test], y[test])
+    cm = confusion_matrix(y[test], ab_predictions)
+    tparte = time.time()
+    avg_accuracy_ab += accuracy
+    print('In the %i fold, the classification accuracy is %f' %(fold_index, accuracy))
+    print('And the confusion matrix is: ')
+    print(cm)
+    print('This fold took %f seconds' %(tparte-tparts))
+    fold_index +=1
+    print(' ')
+avg_accuracy_ab /= n_splits_val
+print('AdaBoost took %f seconds' %((time.time())-tabs))
+print('with an average accuracy of %f' %(avg_accuracy_ab))
+print(' ')
+print(' ')
+
+#RF
+print(' ')
+print('Random Forest')
+print(' ')
+trfs = time.time()
+fold_index = 0
+avg_accuracy_rf = 0
+for train, test in kfold.split(normalized_X):
+    tparts = time.time()
+    rf_model = RandomForestClassifier().fit(normalized_X[train], y[train])
+    rf_predictions = rf_model.predict(normalized_X[test])
+    accuracy = rf_model.score(normalized_X[test], y[test])
+    cm = confusion_matrix(y[test], rf_predictions)
+    tparte = time.time()
+    avg_accuracy_rf += accuracy
+    print('In the %i fold, the classification accuracy is %f' %(fold_index, accuracy))
+    print('And the confusion matrix is: ')
+    print(cm)
+    print('This fold took %f seconds' %(tparte-tparts))
+    fold_index +=1
+    print(' ')
+avg_accuracy_rf /= n_splits_val
+print('Random Forest took %f seconds' %((time.time())-trfs))
+print('with an average accuracy of %f' %(avg_accuracy_rf))
+print(' ')
+print(' ')
 
 
 #Extract some random values
@@ -121,30 +202,12 @@ print('SVM predicted result:')
 print(svm_model_linear.predict(sample))
 print('NN predicted result:')
 print(nn_model.predict(sample))
+print('KNN predicted result:')
+print(knn_model.predict(sample))
+print('AB predicted result:')
+print(ab_model.predict(sample))
+print('RF predicted result:')
+print(rf_model.predict(sample))
     
 tfulle = time.time()
 print('The whole code took %f seconds' %(tfulle-tfulls))
-    
-#Neural Network classifier
-#from sklearn.neural_network import MLPClassifier
-#X = [[0., 0.], [1., 1.]]
-#y = [0, 1]
-#clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1)
-#
-#print(clf.fit(X, y))
-#
-#print(clf.predict([[2., 2.], [-1., -2.]]))
-#
-#print([coef.shape for coef in clf.coefs_])
-#
-#print(clf.predict_proba([[2., 2.], [1., 2.]]) )
-#
-#X = [[0., 0.], [1., 1.]]
-#y = [[0, 1], [1, 1]]
-#clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(15,), random_state=1)
-#
-#clf.fit(X, y)                         
-#
-#print(clf.predict([[1., 2.]]))
-# 
-#print(clf.predict([[0., 0.]]))
