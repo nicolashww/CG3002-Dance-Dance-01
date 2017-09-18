@@ -53,8 +53,9 @@ from sklearn.metrics import confusion_matrix
 kfold = KFold(n_splits=10, shuffle=True)
 
 #SVM
-print(' ')
 print('Support Vector Machines')
+print(' ')
+tsvms = time.time()
 fold_index = 0
 for train, test in kfold.split(normalized_X):
     tparts = time.time()
@@ -68,12 +69,17 @@ for train, test in kfold.split(normalized_X):
     print('In the %i fold, the classification accuracy is %f' %(fold_index, accuracy))
     print('And the confusion matrix is: ')
     print(cm)
-    print('This fold took %f seconds END' %(tparte-tparts))
+    print('This fold took %f seconds' %(tparte-tparts))
     fold_index +=1
+    print(' ')
+print('Support Vector Machines took %f seconds' %((time.time())-tsvms))
+print(' ')
 
 #NN
 print(' ')
 print('Neural network model')
+print(' ')
+tnns = time.time()
 fold_index = 0
 for train, test in kfold.split(normalized_X):
     tparts = time.time()
@@ -85,20 +91,26 @@ for train, test in kfold.split(normalized_X):
     print('In the %i fold, the classification accuracy is %f' %(fold_index, accuracy))
     print('And the confusion matrix is: ')
     print(cm)
-    print('This fold took %f seconds END' %(tparte-tparts))
+    print('This fold took %f seconds' %(tparte-tparts))
     fold_index +=1
-    
-    
-    
-    
-    
+    print(' ')
+print('Neural network model took %f seconds' %((time.time())-tnns))
+print(' ')
+print(' ')  
+
+
 #Extract some random values
 sample = normalized_X[[100,300,500,700,900],:]
 sampletruth = y[[100,300,500,700,900],]
 
+print('Sample data(normalized):')
 print(sample)
+print(' ')
+print('Correct result:')
 print(sampletruth)
+print('SVM predicted result:')
 print(svm_model_linear.predict(sample))
+print('NN predicted result:')
 print(nn_model.predict(sample))
     
 tfulle = time.time()
