@@ -1,4 +1,7 @@
 CG3002-Software
-Noobs 2.4.4 https://www.raspberrypi.org/downloads/noobs/
-GitKraken 3.0 https://www.gitkraken.com/
-Anaconda 4.4.0 https://www.anaconda.com/download/ Update: “conda update --all”
+
+1. Noobs 2.4.4 https://www.raspberrypi.org/downloads/noobs/
+2. GitKraken 3.0 https://www.gitkraken.com/
+3. Anaconda 4.4.0 https://www.anaconda.com/download/ Update: ï¿½conda update --allï¿½
+
+https://docs.google.com/document/d/1n0aq0Fke1nN6KIOq7vN-SbGGLUNK3Z5TUAT3TFU51hQ/edit?usp=sharing
