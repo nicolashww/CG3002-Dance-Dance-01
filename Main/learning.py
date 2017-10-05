@@ -7,9 +7,18 @@
 .Begin Loop
 """
 
-#simple timer
+#Set print command to print to file
+import sys
+sys.stdout = open("Output.txt", "w")
+
+#Print current time on computer
+from datetime import datetime
+print (str(datetime.now()))
+
+#Implement simple timer
 import time
 tfulls = time.time()
+
 
 #Sort data into columns -> For some reason can't extract class column using the better(next) method
 import csv
