@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 @author: Jun Hao
+
+==Skeleton==
+.Load model(s)
+.Begin Loop
 """
 
 #simple timer
