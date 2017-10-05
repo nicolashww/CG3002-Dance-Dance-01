@@ -133,11 +133,14 @@ print(knn_model.predict(sample))
 print('RF predicted result:')
 print(rf_model.predict(sample))
 
-tfulle = time.time()
-print('The whole code took %f seconds' %(tfulle-tfulls))
 
+#Save models for deployment use
 from sklearn.externals import joblib
 joblib.dump(knn_model, 'knn_model.pkl') #Save Model
 #knn_model = joblib.load('knn_model.pkl') #Load Model
 joblib.dump(rf_model, 'rf_model.pkl') #Save Model
 #rf_model = joblib.load('rf_model.pkl') #Load Model
+
+#
+tfulle = time.time()
+print('The whole code took %f seconds' %(tfulle-tfulls))
