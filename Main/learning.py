@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 @author: Jun Hao
-
-==Skeleton==
-.Load model(s)
-.Begin Loop
 """
 
 #Set print command to print to file
@@ -69,9 +65,9 @@ print(' ')
 tknns = time.time()
 fold_index = 0
 avg_accuracy_knn = 0
-for train, test in kfold.split(normalized_X):
+for train, test in kfold.split(normalized_X, y=None, groups=None):
     tparts = time.time()
-    knn_model = KNeighborsClassifier().fit(normalized_X[train], y[train])
+    knn_model = KNeighborsClassifier(n_neighbors=5, weights='uniform', algorithm='auto', leaf_size=30, p=2, metric='minkowski', metric_params=None, n_jobs=-1).fit(normalized_X[train], y[train])
     knn_predictions = knn_model.predict(normalized_X[test])
     accuracy = knn_model.score(normalized_X[test], y[test])
     cm = confusion_matrix(y[test], knn_predictions)
@@ -93,9 +89,9 @@ print(' ')
 trfs = time.time()
 fold_index = 0
 avg_accuracy_rf = 0
-for train, test in kfold.split(normalized_X):
+for train, test in kfold.split(normalized_X, y=None, groups=None):
     tparts = time.time()
-    rf_model = RandomForestClassifier().fit(normalized_X[train], y[train])
+    rf_model = RandomForestClassifier(n_estimators=10, criterion='gini', max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features='auto', max_leaf_nodes=None, min_impurity_decrease=0.0, min_impurity_split=None, bootstrap=True, oob_score=False, n_jobs=-1, random_state=None, verbose=0, warm_start=False, class_weight=None).fit(normalized_X[train], y[train])
     rf_predictions = rf_model.predict(normalized_X[test])
     accuracy = rf_model.score(normalized_X[test], y[test])
     cm = confusion_matrix(y[test], rf_predictions)
