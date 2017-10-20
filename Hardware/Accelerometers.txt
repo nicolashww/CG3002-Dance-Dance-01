@@ -1,0 +1,16 @@
+*MPU-6050*
+Accelerometer: ±2g, ±4g, ±8g and ±16g
+Frequency: 400kHz Fast Mode I²C or up to 20MHz SPI (MPU-6000 only) serial host interfaces
+Current: Gyro + Accelerometer operating current 3.8mA (full power, gyro at all rates, accel at 1kHz sample rate)
+Voltage: VDD Supply voltage range of 2.375V–3.46V; VLOGIC (MPU-6050) at 1.8V±5% or VDD
+Size: 4x4x0.9mm QFN
+https://playground.arduino.cc/Main/MPU-6050 (Useful info for setting up)
+https://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/
+
+*ADXL335*
+Accelerometer:  Minimum full-scale range of ±3 g.
+Frequency: 0.5 Hz to 550 Hz
+Current: 350 μA (typical)
+Voltage:  1.8 V to 3.6 V
+Size: 4×4×1.45mm
+https://www.sparkfun.com/datasheets/Components/SMD/adxl335.pdf
