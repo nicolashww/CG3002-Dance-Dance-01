@@ -30,9 +30,9 @@ with open('dataset_FULL.csv') as csvfile:
             column[h].append(v)
 
 #Sort data into a whole array and extract necessary data
-testdata = np.genfromtxt ('dataset_FULL.csv', delimiter=";")
+testdata = np.genfromtxt ('dataset_CLEANED.csv', delimiter=";")
 testdata = np.delete(testdata, (0), axis=0)
-X = testdata[:,[6,7,8,9,10,11,12,13,14,15,16,17]]
+X = testdata[:,[1,2,3,4,5,6,7,8,9,10,11,12]]
 
 
 #Data pre-processing
