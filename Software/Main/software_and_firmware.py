@@ -31,10 +31,10 @@ while (loopcount<10):
     message = ser.readline()
     messagenp = np.fromstring(message, dtype=int, sep=",")
     messagepd = pd.DataFrame(data=messagenp.reshape(-1, len(messagenp)), index=['1'], columns=['accID', 'x0', 'y0', 'z0', 'x1', 'y1', 'z1', 'x2', 'y2', 'z2', 'x3', 'y3', 'z3', 'pwr'])
-    
     print(messagepd)
     fullDF = fullDF.append(messagepd, ignore_index = True)
-    print(fullDF)
     loppcount = loopcount + 1
     ser.write("\r\nA")
+
+print(fullDF)
     
