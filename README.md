@@ -9,6 +9,7 @@
 2. [GitKraken 3.1](https://www.gitkraken.com/)
 3. [Anaconda 5.0.1](https://www.anaconda.com/download/)
     - Update: `conda update --all`
+    - `conda install -c anaconda pyserial`
 
 [Old Google docs](https://docs.google.com/document/d/1n0aq0Fke1nN6KIOq7vN-SbGGLUNK3Z5TUAT3TFU51hQ/edit?usp=sharing)
 

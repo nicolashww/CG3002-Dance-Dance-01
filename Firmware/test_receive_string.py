@@ -15,6 +15,7 @@ while True:
 			ser.write("\r\nA")
 
 	message = ser.readline()
+    
 	accID = message.split(',')[0]
 	xpos0 = message.split(',')[1]
 	ypos0 = message.split(',')[2]
@@ -28,7 +29,7 @@ while True:
 	xpos3 = message.split(',')[10]
 	ypos3 = message.split(',')[11]
 	zpos3 = message.split(',')[12]
-	current = message.split(',')[13]
+	#current = message.split(',')[13]
 	print("ID: ", accID)
 	print("xpos0: ", xpos0)
 	print("ypos0: ", ypos0)
