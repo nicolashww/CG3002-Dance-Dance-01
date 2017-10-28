@@ -7,7 +7,7 @@
       2. `Left wrist`, right under where pulse is taken, accelerometer facing outwards (left)
       3. `Right upper thigh`, right above knee, accelerometer facing outwards (right)
       4. `Left ankle`, right above shoe, accelerometer facing  outwards (right)
-  2. Systems (Raspberry Pi, Arduino, Powerbanks) attached onto belt **To be done on Sunday itself, design how to attach prepare materials beforehand**
+  2. Systems (Raspberry Pi, Arduino, Powerbanks) attached onto belt **To be done on Sunday itself, design how to attach and source/prepare materials beforehand**
 
 ## Firmware
   1. Fix the frequency of data sent/received to 50Hz (remember what to change to change frequency in case Pi can't keep up and need to lower) **To be done before meeting on Sunday**
@@ -18,3 +18,4 @@
   1. Ignore first few readings **To be done before meeting on Sunday**
   2. Prepare one slow and one fast pre-processing technique **To be done before meeting on Sunday**
       1. To test if Pi can meet 50Hz (or faster or slower)
+  3. Prepare method to learn from raw data **To be done before meeting on Sunday**
