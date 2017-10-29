@@ -7,7 +7,7 @@ Created on Fri Oct 27 16:09:01 2017
 
 #Set print command to print to file
 import sys
-sys.stdout = open("Output.txt", "w")
+sys.stdout = open("OutputComb.txt", "w")
 
 #Print current time on computer
 from datetime import datetime
