@@ -33,13 +33,16 @@ newAccID = 0
 oldAccID = 0
 oldTime = current_milli_time()
 newTime = current_milli_time()
+hashcount = 0
+checkSum = 0
 # Declare column headers
-cols = ['accID', 'x0', 'y0', 'z0', 'x1', 'y1', 'z1', 'x2', 'y2', 'z2', 'x3', 'y3', 'z3', 'pwr', 'hash']
+cols = ['ID', 'x0', 'y0', 'z0', 'x1', 'y1', 'z1', 'x2', 'y2', 'z2', 'x3', 'y3', 'z3', 'chk']
 fullDF = pd.DataFrame(columns=cols)
 
 # Initialize serial
 ser = serial.Serial("/dev/ttyACM3", baudrate=9600, timeout=3.0)
 print("Raspberry Pi Ready")
+
 
 # Ignore first 20 readings
 print("Ignoring starting readings")
@@ -54,26 +57,43 @@ while (ignoreloopcount < 20):
             flag = 0
             ser.write("\r\nA")
     message = ser.readline()
-    print(message)
+    byteMessage = message.encode('utf-8')
+    while hashcount < (len(byteMessage)-1): # Produce checksum from received data
+        checkSum ^= byteMessage[hashcount]
+        print(checkSum)
+        print(hashcount, ": ")
+        print(message[hashcount], "\n")
+        hashcount += 1
+    if chr(checkSum) == message[len(message)-1]: #Check if checksums matches
+        print('Correct')
+        print(message)
+        ser.write("\r\nA")
+        # Store data into buffer
+    else: # Checksums do not match
+        print('Not Correct')
+        print(message)
+        ser.write("\r\nR")
+        # Send request for resend of data to Arduino
     ignoreloopcount += 1
     ser.write("\r\nA")
 
+
 # Read (Main Loop)
 while (loopcount < 50):
-    newTime = current_milli_time()
     message = ser.readline()
     newAccID = int(message.split(',')[0])
-    if ((newAccID > oldAccID) & (newTime >= oldTime)):
+    if (newAccID = oldAccID):
         messagenp = np.fromstring(message, dtype=int, sep=",")
         messagepd = pd.DataFrame(data=messagenp.reshape(-1, len(messagenp)), index=['1'], columns=cols)
         print(messagepd)
         fullDF = fullDF.append(messagepd, ignore_index = True)
         loopcount += 1
-        oldAccID = newAccID
+        oldAccID = newAccID + 1
         oldTime = newTime + 20 #20ms => 50Hz
         ser.write("\r\nA")
 
 print(fullDF)
+
 
 # Remove unneeded data
 fullDF = fullDF.drop(fullDF.columns[14], axis=1)

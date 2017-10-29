@@ -1,12 +1,14 @@
 message = "test"
 byteMessage = message.encode('utf-8')
 print(byteMessage)
+print(len(byteMessage))
 
 i = 0
 checkSum = 0
 
 while i < (len(byteMessage)-1):
     checkSum ^= byteMessage[i]
+    print(checkSum)
     print(i, ": ")
     print(message[i], "\n")
     i += 1

@@ -1,0 +1,22 @@
+Crimp Connector Housing
+  Calculations
+    Accelerometers (x4): 1x5 each = 1x5 * 4
+    Arduino (x1): 1x3 per accelerometer = 1x3 * 4
+    Breadboard: 1x2 per accelerometer = 1x2 * 4
+    Extensions: 1x5 * (3+2+3+1) = 1x5 * 9
+  Final:
+    1x5 : 13 pcs = buy 5 five-pack
+    1x3 : 4 pcs = buy 2 five-pack
+    1x2 : 4 pcs = buy 2 five-pack
+    1x1 : buy 3 five-pack
+Wires
+  Calculations
+    Lengths:
+      wrist to waist = 48" = 12*4
+      arm to waist = 36" = 12*3
+      waist to ankle = 48" = 12*4
+      waist to knee = 24"= 12*2
+    12" wires required = (4+3+4+2)*5 = 65
+  Final:
+    12" : 65 pcs = buy 10 5-pack
+    6" : buy 10 5-pack
