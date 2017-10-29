@@ -20,8 +20,8 @@ current_milli_time = lambda: int(round(time.time() * 1000))
 
 import pandas as pd
 import numpy as np
-import csv
-from sklearn import preprocessing
+#import csv
+#from sklearn import preprocessing
 import serial
 
 
@@ -74,3 +74,10 @@ while (loopcount < 50):
         ser.write("\r\nA")
 
 print(fullDF)
+
+# Remove unneeded data
+fullDF = fullDF.drop(fullDF.columns[14], axis=1)
+fullDF = fullDF.drop(fullDF.columns[13], axis=1)
+fullDF = fullDF.drop(fullDF.columns[0], axis=1)
+# Save cleaned raw data to csv file
+fullDF.to_csv('recorded_data.csv', sep=',')
