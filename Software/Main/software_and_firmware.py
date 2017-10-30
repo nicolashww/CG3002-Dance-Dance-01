@@ -43,11 +43,8 @@ fullDF = pd.DataFrame(columns=cols)
 ser = serial.Serial("/dev/ttyACM3", baudrate=9600, timeout=3.0)
 print("Raspberry Pi Ready")
 
-
-# Ignore first 20 readings
-print("Ignoring starting readings")
-while (ignoreloopcount < 20):
-    while flag == 1:
+# Perform handshake
+while flag == 1:
         ser.write("\r\nH")
         print("H sent, awaiting response...")
         response = ser.read()
@@ -56,6 +53,10 @@ while (ignoreloopcount < 20):
             print("Begin reading:")
             flag = 0
             ser.write("\r\nA")
+
+# Ignore first 20 readings
+print("Ignoring starting readings")
+while (ignoreloopcount < 20):
     message = ser.readline()
     byteMessage = message.encode('utf-8')
     while hashcount < (len(byteMessage)-1): # Produce checksum from received data
@@ -72,25 +73,33 @@ while (ignoreloopcount < 20):
     else: # Checksums do not match
         print('Not Correct')
         print(message)
-        ser.write("\r\nR")
-        # Send request for resend of data to Arduino
+        ser.write("\r\nR") # Send request for resend of data to Arduino
     ignoreloopcount += 1
     ser.write("\r\nA")
-
 
 # Read (Main Loop)
 while (loopcount < 50):
     message = ser.readline()
     newAccID = int(message.split(',')[0])
-    if (newAccID = oldAccID):
-        messagenp = np.fromstring(message, dtype=int, sep=",")
-        messagepd = pd.DataFrame(data=messagenp.reshape(-1, len(messagenp)), index=['1'], columns=cols)
-        print(messagepd)
-        fullDF = fullDF.append(messagepd, ignore_index = True)
-        loopcount += 1
-        oldAccID = newAccID + 1
-        oldTime = newTime + 20 #20ms => 50Hz
-        ser.write("\r\nA")
+    if (newAccID == oldAccID):
+        if chr(checkSum) == message[len(message)-1]: # Check if checksums matches
+            print('Correct')
+            messagenp = np.fromstring(message, dtype=int, sep=",")
+            messagepd = pd.DataFrame(data=messagenp.reshape(-1, len(messagenp)), index=['1'], columns=cols)
+            print(messagepd)
+            ser.write("\r\nA")
+            fullDF = fullDF.append(messagepd, ignore_index = True)
+            loopcount += 1
+            oldAccID = newAccID + 1
+        else: # Checksums do not match
+            print('Not Correct')
+            print(message)
+            ser.write("\r\nR") # Send request for resend of data to Arduino
+    else :
+        print('oldAccID = ' + oldAccID)
+        print('newAccID = ' + newAccID)
+        loopcount = 50
+
 
 print(fullDF)
 
