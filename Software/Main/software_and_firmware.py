@@ -6,8 +6,8 @@ Created on Fri Oct 27 16:09:01 2017
 """
 
 #Set print command to print to file
-import sys
-sys.stdout = open("OutputComb.txt", "w")
+#import sys
+#sys.stdout = open("OutputComb.txt", "w")
 
 #Print current time on computer
 from datetime import datetime
@@ -23,6 +23,7 @@ import numpy as np
 #import csv
 #from sklearn import preprocessing
 import serial
+import array
 
 
 # Declarations
@@ -40,7 +41,7 @@ cols = ['ID', 'x0', 'y0', 'z0', 'x1', 'y1', 'z1', 'x2', 'y2', 'z2', 'x3', 'y3', 
 fullDF = pd.DataFrame(columns=cols)
 
 # Initialize serial
-ser = serial.Serial("/dev/ttyACM3", baudrate=9600, timeout=3.0)
+ser = serial.Serial("/dev/ttyACM0", baudrate=9600, timeout=3.0)
 print("Raspberry Pi Ready")
 
 # Perform handshake
@@ -58,9 +59,9 @@ while flag == 1:
 print("Ignoring starting readings")
 while (ignoreloopcount < 20):
     message = ser.readline()
-    byteMessage = message.encode('utf-8')
+    byteMessage = array.array('B', message)
     while hashcount < (len(byteMessage)-1): # Produce checksum from received data
-        checkSum ^= byteMessage[hashcount]
+        checkSum ^= int(byteMessage[hashcount])
         print(checkSum)
         print(hashcount, ": ")
         print(message[hashcount], "\n")
@@ -75,7 +76,6 @@ while (ignoreloopcount < 20):
         print(message)
         ser.write("\r\nR") # Send request for resend of data to Arduino
     ignoreloopcount += 1
-    ser.write("\r\nA")
 
 # Read (Main Loop)
 while (loopcount < 50):
