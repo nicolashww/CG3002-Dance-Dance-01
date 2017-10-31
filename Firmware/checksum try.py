@@ -1,5 +1,5 @@
 import array
-message = "test"
+message = "10,304,296,362,223,352,324,281,331,356,905,362,361,'"
 byteMessage = array.array('B', message)
 print(byteMessage)
 print(len(byteMessage))
