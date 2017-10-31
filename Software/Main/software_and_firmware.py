@@ -31,13 +31,13 @@ flag = 1
 ignoreloopcount = 0
 loopcount = 0
 newAccID = 0
-oldAccID = 0
+oldAccID = 10
 oldTime = current_milli_time()
 newTime = current_milli_time()
 hashcount = 0
 checkSum = 0
 # Declare column headers
-cols = ['ID', 'x0', 'y0', 'z0', 'x1', 'y1', 'z1', 'x2', 'y2', 'z2', 'x3', 'y3', 'z3', 'chk']
+cols = ['ID', 'x0', 'y0', 'z0', 'x1', 'y1', 'z1', 'x2', 'y2', 'z2', 'x3', 'y3', 'z3']
 fullDF = pd.DataFrame(columns=cols)
 
 # Initialize serial
@@ -54,19 +54,17 @@ while flag == 1:
             print("Begin reading:")
             flag = 0
             ser.write("\r\nA")
+        time.sleep(1)
 
 # Ignore first 20 readings
 print("Ignoring starting readings")
-while (ignoreloopcount < 20):
+while (ignoreloopcount < 10):
     message = ser.readline()
     byteMessage = array.array('B', message)
-    while hashcount < (len(byteMessage)-1): # Produce checksum from received data
+    while hashcount < (len(byteMessage)-2): # Produce checksum from received data
         checkSum ^= int(byteMessage[hashcount])
-        print(checkSum)
-        print(hashcount, ": ")
-        print(message[hashcount], "\n")
         hashcount += 1
-    if chr(checkSum) == message[len(message)-1]: #Check if checksums matches
+    if chr(checkSum) == message[len(message)-2]: #Check if checksums matches
         print('Correct')
         print(message)
         ser.write("\r\nA")
@@ -74,19 +72,33 @@ while (ignoreloopcount < 20):
     else: # Checksums do not match
         print('Not Correct')
         print(message)
+        #print(chr(checkSum))
+        print('WHERE')
         ser.write("\r\nR") # Send request for resend of data to Arduino
     ignoreloopcount += 1
+    checkSum = 0
+    hashcount = 0
 
+print("MAIN LOOP")
 # Read (Main Loop)
-while (loopcount < 50):
+while (loopcount < 200):
     message = ser.readline()
+    #print(message)
     newAccID = int(message.split(',')[0])
+    
     if (newAccID == oldAccID):
-        if chr(checkSum) == message[len(message)-1]: # Check if checksums matches
-            print('Correct')
-            messagenp = np.fromstring(message, dtype=int, sep=",")
-            messagepd = pd.DataFrame(data=messagenp.reshape(-1, len(messagenp)), index=['1'], columns=cols)
-            print(messagepd)
+        byteMessage = array.array('B', message)
+        while hashcount < (len(byteMessage)-2): # Produce checksum from received data
+                checkSum ^= int(byteMessage[hashcount])
+                hashcount += 1
+        if chr(checkSum) == message[len(message)-2]: # Check if checksums matches
+            #print('Correct')
+            #print(message)
+            messagenp = np.fromstring(message[0:(len(message)-2)], dtype=int, sep=",")
+            
+            #print(messagenp)
+            messagepd = pd.DataFrame(data=messagenp.reshape(-1, (len(messagenp))), index=['1'], columns=cols)
+            #print(messagepd)
             ser.write("\r\nA")
             fullDF = fullDF.append(messagepd, ignore_index = True)
             loopcount += 1
@@ -96,17 +108,21 @@ while (loopcount < 50):
             print(message)
             ser.write("\r\nR") # Send request for resend of data to Arduino
     else :
-        print('oldAccID = ' + oldAccID)
-        print('newAccID = ' + newAccID)
+        print('oldAccID = ')
+        print(oldAccID)
+        print('newAccID = ')
+        print(newAccID)
         loopcount = 50
+    checkSum = 0
+    hashcount = 0
 
 
 print(fullDF)
 
 
 # Remove unneeded data
-fullDF = fullDF.drop(fullDF.columns[14], axis=1)
-fullDF = fullDF.drop(fullDF.columns[13], axis=1)
+#fullDF = fullDF.drop(fullDF.columns[14], axis=1)
+#fullDF = fullDF.drop(fullDF.columns[13], axis=1)
 fullDF = fullDF.drop(fullDF.columns[0], axis=1)
 # Save cleaned raw data to csv file
 fullDF.to_csv('recorded_data.csv', sep=',')
