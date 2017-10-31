@@ -220,6 +220,7 @@ void Accel0(void *pvParameters)
         sendFlag = 1;
         frameNum++;
         readByte = 0;
+        checkSum = 0;
 
         xSemaphoreGive(xBinarySemaphore);
         xSemaphoreGive(xMutexSemaphore);
